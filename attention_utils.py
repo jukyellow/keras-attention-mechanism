@@ -12,7 +12,8 @@ def get_activations(model, inputs, print_shape_only=False, layer_name=None):
         outputs = [layer.output for layer in model.layers]
     else:
         outputs = [layer.output for layer in model.layers if layer.name == layer_name]  # all layer outputs
-    print('get_activations>outputs.shape:' , outputs.shape)
+    print('get_activations>len(outputs):' , len(outputs))
+    print('get_activations>outputs[0]:' , outputs[0])
         
     funcs = [K.function([inp] + [K.learning_phase()], [out]) for out in outputs]  # evaluation functions
     print('get_activations>funcs.shape:' , funcs.shape)
