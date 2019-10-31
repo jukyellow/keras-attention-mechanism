@@ -12,8 +12,14 @@ def get_activations(model, inputs, print_shape_only=False, layer_name=None):
         outputs = [layer.output for layer in model.layers]
     else:
         outputs = [layer.output for layer in model.layers if layer.name == layer_name]  # all layer outputs
+    print('get_activations>outputs.shape:' , outputs.shape)
+        
     funcs = [K.function([inp] + [K.learning_phase()], [out]) for out in outputs]  # evaluation functions
+    print('get_activations>funcs.shape:' , funcs.shape)
+    
     layer_outputs = [func([inputs, 1.])[0] for func in funcs]
+    print('get_activations>layer_outputs:' , layer_outputs)
+    
     for layer_activations in layer_outputs:
         activations.append(layer_activations)
         if print_shape_only:
