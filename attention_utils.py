@@ -13,10 +13,11 @@ def get_activations(model, inputs, print_shape_only=False, layer_name=None):
     else:
         outputs = [layer.output for layer in model.layers if layer.name == layer_name]  # all layer outputs
     print('get_activations>len(outputs):' , len(outputs))
-    print('get_activations>outputs[0]:' , outputs[0])
+    print('get_activations>outputs[0]:' , outputs[0]) #Tensor("attention_vec/Softmax:0", shape=(?, 32), dtype=float32)
         
     funcs = [K.function([inp] + [K.learning_phase()], [out]) for out in outputs]  # evaluation functions
-    print('get_activations>funcs.shape:' , funcs.shape)
+    print('get_activations>len(funcs):' , len(funcs))
+    print('get_activations>funcs[0]:' , funcs[0])
     
     layer_outputs = [func([inputs, 1.])[0] for func in funcs]
     print('get_activations>layer_outputs:' , layer_outputs)
