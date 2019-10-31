@@ -17,10 +17,10 @@ def get_activations(model, inputs, print_shape_only=False, layer_name=None):
         
     funcs = [K.function([inp] + [K.learning_phase()], [out]) for out in outputs]  # evaluation functions
     print('get_activations>len(funcs):' , len(funcs))
-    print('get_activations>funcs[0]:' , funcs[0])
+    print('get_activations>funcs[0]:' , funcs[0]) #<keras.backend.tensorflow_backend.Function object at 0x7fdcd02f6320>
     
     layer_outputs = [func([inputs, 1.])[0] for func in funcs]
-    print('get_activations>layer_outputs:' , layer_outputs)
+    print('get_activations>layer_outputs:' , layer_outputs) #[array([[0.01149518, 0.5267872 , 0.00756128, 0.01149917, 0.0242379 ,...
     
     for layer_activations in layer_outputs:
         activations.append(layer_activations)
